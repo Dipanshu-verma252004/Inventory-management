@@ -1,0 +1,11 @@
+@extends('layouts.master')
+
+@section('title', 'Sales Report')
+
+@section('content')
+<div class="card"><div class="card-header d-flex justify-content-between"><h4 class="mb-0">Sales Report</h4><a href="{{ route('sales.index') }}" class="btn btn-secondary">Back to Sales</a></div><div class="card-body">
+<form method="GET" class="row g-2 mb-4"><div class="col-md-4"><select name="customer_id" class="form-select"><option value="">All Customers</option>@foreach($customers as $customer)<option value="{{ $customer->id }}" @selected(request('customer_id') == $customer->id)>{{ $customer->customer_name }}</option>@endforeach</select></div><div class="col-md-3"><input type="date" name="from_date" value="{{ request('from_date') }}" class="form-control"></div><div class="col-md-3"><input type="date" name="to_date" value="{{ request('to_date') }}" class="form-control"></div><div class="col-md-2"><button class="btn btn-primary w-100">Filter</button></div></form>
+<div class="row mb-3"><div class="col-md-4"><div class="alert alert-primary mb-0">Total Sales: <strong>{{ number_format($totals->total, 2) }}</strong></div></div><div class="col-md-4"><div class="alert alert-success mb-0">Paid: <strong>{{ number_format($totals->paid, 2) }}</strong></div></div><div class="col-md-4"><div class="alert alert-warning mb-0">Due: <strong>{{ number_format($totals->due, 2) }}</strong></div></div></div>
+<div class="table-responsive"><table class="table table-bordered"><thead><tr><th>Sale No</th><th>Date</th><th>Customer</th><th class="text-end">Total</th><th class="text-end">Paid</th><th class="text-end">Due</th></tr></thead><tbody>@forelse($sales as $sale)<tr><td>{{ $sale->sale_no }}</td><td>{{ $sale->sale_date }}</td><td>{{ $sale->customer->customer_name }}</td><td class="text-end">{{ number_format($sale->total_amount,2) }}</td><td class="text-end">{{ number_format($sale->paid_amount,2) }}</td><td class="text-end">{{ number_format($sale->due_amount,2) }}</td></tr>@empty<tr><td colspan="6" class="text-center">No sales found.</td></tr>@endforelse</tbody></table></div>{{ $sales->links() }}
+</div></div>
+@endsection
