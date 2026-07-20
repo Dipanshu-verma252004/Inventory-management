@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PurchaseController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ReportController;
 
 
 Route::get('/', function () {
@@ -43,5 +44,15 @@ Route::resource('customers', CustomerController::class);
 Route::get('sales/report', [SaleController::class, 'report'])->name('sales.report');
 Route::resource('sales', SaleController::class);
 Route::get('sales/{sale}/print',[SaleController::class,'print'])->name('sales.print');
+Route::prefix('reports')->name('reports.')->group(function () {
+
+    Route::get('/stock', [ReportController::class, 'stock'])
+        ->name('stock');
+    Route::get('/purchase', [ReportController::class, 'purchase'])->name('purchase');
+    Route::get('/sales', [ReportController::class, 'sales'])->name('sales');
+    Route::get('/low-stock', [ReportController::class, 'lowStock'])->name('low-stock');
+    Route::get('/profit', [ReportController::class, 'profit'])->name('profit');
+
+});
 
 require __DIR__.'/auth.php';

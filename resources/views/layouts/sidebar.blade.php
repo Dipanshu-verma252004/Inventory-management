@@ -86,6 +86,27 @@
             </a>
         </li>
 
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Reports</span>
+        </li>
+
+        <li class="menu-item {{ request()->routeIs('reports.stock') ? 'active' : '' }}">
+
+            <a href="{{ route('reports.stock') }}" class="menu-link">
+
+                <i class="menu-icon tf-icons bx bx-bar-chart"></i>
+
+                <div>Stock Report</div>
+
+            </a>
+
+        </li>
+
+        <li class="menu-item {{ request()->routeIs('reports.purchase') ? 'active' : '' }}"><a href="{{ route('reports.purchase') }}" class="menu-link"><i class="menu-icon tf-icons bx bx-cart"></i><div>Purchase Report</div></a></li>
+        <li class="menu-item {{ request()->routeIs('reports.sales') ? 'active' : '' }}"><a href="{{ route('reports.sales') }}" class="menu-link"><i class="menu-icon tf-icons bx bx-receipt"></i><div>Sales Report</div></a></li>
+        <li class="menu-item {{ request()->routeIs('reports.low-stock') ? 'active' : '' }}"><a href="{{ route('reports.low-stock') }}" class="menu-link"><i class="menu-icon tf-icons bx bx-error-circle"></i><div>Low Stock</div></a></li>
+        <li class="menu-item {{ request()->routeIs('reports.profit') ? 'active' : '' }}"><a href="{{ route('reports.profit') }}" class="menu-link"><i class="menu-icon tf-icons bx bx-line-chart"></i><div>Profit Report</div></a></li>
+
     </ul>
 
 </aside>
