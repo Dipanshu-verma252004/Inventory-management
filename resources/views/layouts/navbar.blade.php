@@ -55,7 +55,7 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <h6 class="mb-0">John Doe</h6>
+                            <h6 class="mb-0">{{ auth()->user()->name }}</h6>
                             <small class="text-body-secondary">Admin</small>
                           </div>
                         </div>
@@ -65,7 +65,7 @@
                       <div class="dropdown-divider my-1"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="{{ route('profile.edit') }}">
                         <i class="icon-base bx bx-user icon-md me-3"></i><span>My Profile</span>
                       </a>
                     </li>
@@ -87,9 +87,12 @@
                       <div class="dropdown-divider my-1"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="javascript:void(0);">
-                        <i class="icon-base bx bx-power-off icon-md me-3"></i><span>Log Out</span>
-                      </a>
+                      <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="dropdown-item">
+                          <i class="icon-base bx bx-power-off icon-md me-3"></i><span>Log Out</span>
+                        </button>
+                      </form>
                     </li>
                   </ul>
                 </li>

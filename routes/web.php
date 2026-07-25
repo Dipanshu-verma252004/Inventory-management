@@ -17,7 +17,7 @@ use App\Http\Controllers\Admin\ReportController;
 Route::get('/', function () {
     return auth()->check()
         ? redirect()->route('dashboard')
-        : redirect()->route('register');
+        : redirect()->route('login');
 })->name('home');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
@@ -31,30 +31,27 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-
     Route::resource('categories', CategoryController::class);
+    Route::resource('brands', BrandController::class);
+    Route::resource('units', UnitController::class);
+    Route::resource('suppliers', SupplierController::class);
+    Route::resource('products', ProductController::class);
+    Route::resource('purchases', PurchaseController::class);
+    Route::get('purchases/{purchase}/print',[PurchaseController::class,'print'])->name('purchases.print');
+    Route::resource('customers', CustomerController::class);
+    Route::get('sales/report', [SaleController::class, 'report'])->name('sales.report');
+    Route::resource('sales', SaleController::class);
+    Route::get('sales/{sale}/print',[SaleController::class,'print'])->name('sales.print');
+    Route::prefix('reports')->name('reports.')->group(function () {
 
-});
+        Route::get('/stock', [ReportController::class, 'stock'])
+            ->name('stock');
+        Route::get('/purchase', [ReportController::class, 'purchase'])->name('purchase');
+        Route::get('/sales', [ReportController::class, 'sales'])->name('sales');
+        Route::get('/low-stock', [ReportController::class, 'lowStock'])->name('low-stock');
+        Route::get('/profit', [ReportController::class, 'profit'])->name('profit');
 
-Route::resource('brands', BrandController::class);
-Route::resource('units', UnitController::class);
-Route::resource('suppliers', SupplierController::class);
-Route::resource('products', ProductController::class);
-Route::resource('purchases', PurchaseController::class);
-Route::get('purchases/{purchase}/print',[PurchaseController::class,'print'])->name('purchases.print');
-Route::resource('customers', CustomerController::class);
-Route::get('sales/report', [SaleController::class, 'report'])->name('sales.report');
-Route::resource('sales', SaleController::class);
-Route::get('sales/{sale}/print',[SaleController::class,'print'])->name('sales.print');
-Route::prefix('reports')->name('reports.')->group(function () {
-
-    Route::get('/stock', [ReportController::class, 'stock'])
-        ->name('stock');
-    Route::get('/purchase', [ReportController::class, 'purchase'])->name('purchase');
-    Route::get('/sales', [ReportController::class, 'sales'])->name('sales');
-    Route::get('/low-stock', [ReportController::class, 'lowStock'])->name('low-stock');
-    Route::get('/profit', [ReportController::class, 'profit'])->name('profit');
-
+    });
 });
 
 require __DIR__.'/auth.php';
