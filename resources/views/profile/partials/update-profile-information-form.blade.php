@@ -1,4 +1,4 @@
-<section>
+<section class="settings-section">
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
             {{ __('Profile Information') }}
@@ -13,7 +13,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="settings-form">
         @csrf
         @method('patch')
 
@@ -47,8 +47,8 @@
             @endif
         </div>
 
-        <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+        <div class="settings-actions">
+            <x-primary-button class="profile-save">{{ __('Save changes') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')
                 <p

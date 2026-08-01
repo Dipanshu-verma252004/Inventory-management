@@ -1,28 +1,33 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+    <div class="profile-container">
+        <section class="profile-hero-card">
+            <div class="profile-breadcrumb"><a href="{{ route('dashboard') }}">Dashboard</a><span>/</span> Account settings</div>
+            <div class="profile-hero-content">
+                <div class="profile-avatar">{{ strtoupper(substr($user->name, 0, 1)) }}</div>
+                <div>
+                    <h1>Account settings</h1>
+                    <p>Manage your personal details and account security.</p>
+                </div>
+            </div>
+        </section>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
+        <div class="profile-settings-grid">
+            <aside class="profile-sidebar">
+                <p class="profile-sidebar-title">SETTINGS</p>
+                <a class="active" href="#personal-details"><i class="icon-base bx bx-user"></i> Personal details</a>
+                <a href="#security"><i class="icon-base bx bx-lock-alt"></i> Password & security</a>
+                <a href="#danger-zone"><i class="icon-base bx bx-trash"></i> Danger zone</a>
+            </aside>
+            <div class="profile-cards">
+                <article id="personal-details" class="profile-card">
                     @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
+                </article>
+                <article id="security" class="profile-card">
                     @include('profile.partials.update-password-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
+                </article>
+                <article id="danger-zone" class="profile-card profile-danger-card">
                     @include('profile.partials.delete-user-form')
-                </div>
+                </article>
             </div>
         </div>
     </div>

@@ -1,8 +1,16 @@
 <x-guest-layout>
+    <div class="auth-heading">
+        <span class="auth-heading-icon"><i class="icon-base bx bx-log-in"></i></span>
+        <div>
+            <h2>Welcome back</h2>
+            <p>Sign in to manage your inventory.</p>
+        </div>
+    </div>
+
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}" class="auth-form">
         @csrf
 
         <!-- Email Address -->
@@ -32,16 +40,20 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="auth-form-actions">
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
+            <x-primary-button class="auth-submit">
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
+
+        @if (Route::has('register'))
+            <p class="auth-switch">New to StockFlow? <a href="{{ route('register') }}">Create an account</a></p>
+        @endif
     </form>
 </x-guest-layout>
